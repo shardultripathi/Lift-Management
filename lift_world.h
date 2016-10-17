@@ -5,6 +5,8 @@
 #ifndef COL333_A4_LIFT_WORLD_H
 #define COL333_A4_LIFT_WORLD_H
 
+#include <iosfwd>
+
 namespace COL333_A4 {
     /*
      * AS still
@@ -22,6 +24,15 @@ namespace COL333_A4 {
         int current_floor;
         bool *drop;
         int total_buttons_pressed;
+
+        lift() : current_floor(0), drop(nullptr), total_buttons_pressed(0) { }
+
+        void set_floor_count(int n) {
+            if (drop)
+                delete[]drop;
+            drop = new bool[n];
+        }
+
     public:
         lift(int n) : current_floor(0), drop(new bool[n]), total_buttons_pressed(0) { }
 
@@ -33,7 +44,7 @@ namespace COL333_A4 {
             drop[floor] = true;
         }
 
-        void drop_all(int floor = current_floor) {
+        void drop_all(int floor) {
             if (drop[floor])
                 total_buttons_pressed--;
             drop[floor] = false;
@@ -42,6 +53,8 @@ namespace COL333_A4 {
         bool empty() {
             return total_buttons_pressed == 0;
         }
+
+        friend class lift_world;
     };
 
     class lift_world {
@@ -51,7 +64,10 @@ namespace COL333_A4 {
         bool *D;
         lift *lifts;
     public:
-        lift_world(int n, int k) : n(n), k(k), U(new bool[n]), D(new bool[n]), lifts(new lift[2](n)) { }
+        lift_world(int n, int k) : n(n), k(k), U(new bool[n]), D(new bool[n]), lifts(new lift[k]) {
+            for (int i = 0; i < k; i++)
+                lifts[i].set_floor_count(n);
+        }
 
         void press_button(int floor, bool up) {
             (up ? U : D)[floor] = true;
@@ -60,7 +76,17 @@ namespace COL333_A4 {
         void press_lift_button(int lift, int floor) {
             lifts[lift].press_button(floor);
         }
+
+        int get_floor_count() const {
+            return n;
+        }
+
+        int get_lift_count() const {
+            return k;
+        }
     };
+
+    std::ostream&operator<<(std::ostream&o,lift_action action);
 }
 
 #endif //COL333_A4_LIFT_WORLD_H
