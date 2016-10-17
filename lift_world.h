@@ -29,10 +29,10 @@ namespace COL333_A4 {
             current_floor += delta;
         }
 
-        void add_person(int delta) {
-            if (!drop[current_floor + delta])
+        void add_person(int floor) {
+            if (!drop[floor])
                 total++;
-            drop[current_floor + delta] = true;
+            drop[floor] = true;
         }
 
         void drop_all(int floor = current_floor) {
