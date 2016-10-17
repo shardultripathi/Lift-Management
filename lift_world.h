@@ -58,7 +58,7 @@ namespace COL333_A4 {
         }
 
         void press_lift_button(int lift, int floor) {
-            lifts[lift].add_person(floor);
+            lifts[lift].press_button(floor);
         }
     };
 }
