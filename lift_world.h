@@ -14,7 +14,7 @@ namespace COL333_A4 {
      * AOD open with down display
      */
     enum lift_action {
-        AS = 0, AU = 1, AD = 2, AOU = 4, AOD = 5
+        AS = 0, AU = 1, AD = 2, AOU = 3, AOD = 4
     };
 
 
