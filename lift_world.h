@@ -21,28 +21,26 @@ namespace COL333_A4 {
     class lift {
         int current_floor;
         bool *drop;
-        int total;
+        int total_buttons_pressed;
     public:
-        lift(int n) : current_floor(0), drop(new bool[n]), total(0) { }
+        lift(int n) : current_floor(0), drop(new bool[n]), total_buttons_pressed(0) { }
 
         void update_floor(int delta) {
             current_floor += delta;
         }
 
-        void add_person(int floor) {
-            if (!drop[floor])
-                total++;
+        void press_button(int floor) {
             drop[floor] = true;
         }
 
         void drop_all(int floor = current_floor) {
             if (drop[floor])
-                total--;
+                total_buttons_pressed--;
             drop[floor] = false;
         }
 
         bool empty() {
-            return total == 0;
+            return total_buttons_pressed == 0;
         }
     };
 
