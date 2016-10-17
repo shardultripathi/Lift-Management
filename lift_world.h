@@ -52,15 +52,17 @@ namespace COL333_A4 {
         bool *U;
         bool *D;
         lift *lifts;
-        lift **floors;
     public:
-        lift_world(int n, int k) : n(n), k(k), U(new bool[n]), D(new bool[n]), lifts(new lift[2](n)),floors(new lift*[n]) { }
+        lift_world(int n, int k) : n(n), k(k), U(new bool[n]), D(new bool[n]), lifts(new lift[2](n)) { }
 
         void press_button(int floor, bool up) {
             (up ? U : D)[floor] = true;
         }
-    };
 
+        void press_lift_button(int lift, int floor) {
+            lifts[lift].add_person(floor);
+        }
+    };
 }
 
 #endif //COL333_A4_LIFT_WORLD_H
