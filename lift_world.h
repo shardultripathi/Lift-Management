@@ -13,17 +13,36 @@ namespace COL333_A4 {
      * AOU open with up display
      * AOD open with down display
      */
-    enum lift_action{AS=0,AU=1,AD=2,AOU=4,AOD=5};
+    enum lift_action {
+        AS = 0, AU = 1, AD = 2, AOU = 4, AOD = 5
+    };
 
 
     class lift {
         int current_floor;
-        int *drop_count;
+        bool *drop;
+        int total;
     public:
-        lift(int n) : current_floor(0), drop_count(new int[n]) { }
+        lift(int n) : current_floor(0), drop(new bool[n]), total(0) { }
 
         void update_floor(int delta) {
             current_floor += delta;
+        }
+
+        void add_person(int delta) {
+            if (!drop[current_floor + delta])
+                total++;
+            drop[current_floor + delta] = true;
+        }
+
+        void drop_all(int floor = current_floor) {
+            if (drop[floor])
+                total--;
+            drop[floor] = false;
+        }
+
+        bool empty() {
+            return total == 0;
         }
     };
 
@@ -33,9 +52,15 @@ namespace COL333_A4 {
         bool *U;
         bool *D;
         lift *lifts;
+        lift **floors;
     public:
-        lift_world(int n, int k) : n(n), k(k), U(new bool[n]), D(new bool[n]), lifts(new lift[2](n)) { }
+        lift_world(int n, int k) : n(n), k(k), U(new bool[n]), D(new bool[n]), lifts(new lift[2](n)),floors(new lift*[n]) { }
+
+        void press_button(int floor, bool up) {
+            (up ? U : D)[floor] = true;
+        }
     };
+
 }
 
 #endif //COL333_A4_LIFT_WORLD_H
