@@ -17,13 +17,13 @@ void COL333_A4::read_observatins(std::istream &observations, lift_world &world) 
                 *lift_no++ = 0;
                 int fl = std::atoi(floor);
                 int ln = std::atoi(lift_no);
-                std::cerr << fl << ' ' << ln << " pressed\n";
-                world.press_lift_button(ln, fl);
+                //std::cerr << fl << ' ' << ln << " pressed\n";
+                world.press_lift_button(ln, fl - 1);
             } else {
                 char *floor = action + 3;
                 bool up = action[1] == 'U';
-                std::cerr << atoi(floor) << ' ' << up << " pressed\n";
-                world.press_button(atoi(floor), up);
+                //std::cerr << atoi(floor) << ' ' << up << " pressed\n";
+                world.press_button(atoi(floor) - 1, up);
             }
         }
 }

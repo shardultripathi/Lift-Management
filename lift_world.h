@@ -53,6 +53,9 @@ namespace COL333_A4 {
         bool empty() {
             return total_buttons_pressed == 0;
         }
+        int getFloor() {
+            return current_floor;
+        }
 
         friend class lift_world;
     };
@@ -83,6 +86,14 @@ namespace COL333_A4 {
 
         int get_lift_count() const {
             return k;
+        }
+
+        bool getPressed(int floor, bool up) {
+            return (up ? U : D)[floor];
+        }
+
+        lift *getLift(int k) {
+            return lifts + k;
         }
     };
 

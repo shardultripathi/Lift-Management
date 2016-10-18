@@ -17,7 +17,16 @@ void assignment(int n,int k,double p,double q,double r,int tl) {
         c.computeActions(tl);
         for (int i = 0; i < k; i++)
             cout << c.getAction(i) << i + 1 << ' ';
+        for (int i = 0; i < k; i++)
+            if (c.getAction(i) == AU)
+                world.getLift(i)->update_floor(1);
+            else if (c.getAction(i) == AD)
+                world.getLift(i)->update_floor(-1);
+        /*for (int i = 0; i < k; i++)
+            cerr << world.getLift(i)->getFloor() + 1 << ' ';
+        cerr << '\n';*/
         cout << '\n';
+        cout.flush();
     }
 }
 
